@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Анти-лекции — современный лендинг</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f5f7ff;
+      --surface:#ffffff;
+      --text:#111827;
+      --muted:#5b6475;
+      --primary:#ff5a36;
+      --primary-dark:#de4525;
+      --secondary:#223b83;
+      --ring:rgba(255,90,54,.28);
+      --radius:22px;
+      --shadow:0 14px 35px rgba(16,24,40,.08);
+      --max:1180px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,system-ui,sans-serif;background:radial-gradient(1200px 800px at 90% -10%,#ebefff 0,var(--bg) 46%,#f8f9ff 100%);color:var(--text);line-height:1.45}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+    .nav-wrap{position:sticky;top:0;z-index:30;background:rgba(245,247,255,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(17,24,39,.08)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{font-weight:800;font-size:1.2rem}
+    .logo span{color:var(--primary)}
+    .links{display:flex;gap:24px;color:var(--muted);font-weight:500}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;border-radius:999px;padding:11px 20px;font-weight:700;transition:.2s}
+    .btn-main{background:var(--primary);color:#fff;box-shadow:0 8px 20px rgba(255,90,54,.28)}
+    .btn-main:hover{transform:translateY(-1px);background:var(--primary-dark)}
+    .menu-btn{display:none}
+
+    .hero{padding:72px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+    .badge{display:inline-flex;padding:6px 14px;border-radius:999px;background:#ffece6;color:#b73f25;font-weight:700;font-size:.82rem;margin-bottom:18px}
+    h1{font-size:clamp(2rem,4.5vw,3.7rem);line-height:1.08;letter-spacing:-.02em;margin-bottom:18px}
+    .grad{background:linear-gradient(130deg,var(--secondary),var(--primary));-webkit-background-clip:text;color:transparent}
+    .hero p{color:var(--muted);font-size:1.06rem;max-width:60ch;margin-bottom:22px}
+    .hero-card{background:var(--surface);border:1px solid #e8ebf6;padding:24px;border-radius:28px;box-shadow:var(--shadow)}
+    .quote{padding:14px;border-radius:16px;background:#f8faff;margin-bottom:12px}
+    .quote strong{color:var(--secondary)}
+
+    .section{padding:56px 0}
+    .title{font-size:clamp(1.5rem,3.6vw,2.4rem);margin-bottom:10px}
+    .sub{color:var(--muted);margin-bottom:26px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--surface);border:1px solid #e8ebf6;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .card h3{margin:10px 0 8px;font-size:1.08rem}
+    .icon{font-size:1.5rem}
+
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .stat{padding:20px;border-radius:18px;background:#fff;border:1px solid #e8ebf6;text-align:center}
+    .num{font-size:2rem;font-weight:800;color:var(--primary)}
+
+    .cta{background:linear-gradient(140deg,#1c326f,#2d4591);color:#fff;border-radius:34px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+    .cta p{opacity:.9}
+    .form{background:#fff;padding:16px;border-radius:20px;color:var(--text)}
+    .input{width:100%;padding:12px 14px;margin:8px 0;border:1px solid #d8dce8;border-radius:12px;font:inherit}
+    .input:focus{outline:3px solid var(--ring);border-color:var(--primary)}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:.55s ease}
+    .reveal.in{opacity:1;transform:translateY(0)}
+
+    footer{padding:36px 0 50px;color:var(--muted);text-align:center}
+
+    @media (max-width:900px){
+      .hero,.cta{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .links{display:none;position:absolute;top:76px;left:0;right:0;padding:16px 20px;background:#f5f7ff;border-bottom:1px solid rgba(17,24,39,.08)}
+      .links.open{display:flex;flex-direction:column;gap:12px}
+      .menu-btn{display:inline-flex;background:#fff;border:1px solid #e1e5f2}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="logo" href="#">Анти<span>лекции</span></a>
+      <nav class="links" id="links">
+        <a href="#concept">Концепция</a>
+        <a href="#benefits">Выгоды</a>
+        <a href="#stats">Рейтинг</a>
+        <a href="#start">Запуск</a>
+      </nav>
+      <button class="btn btn-main">Запустить</button>
+      <button class="btn menu-btn" id="menuBtn">Меню</button>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero" id="concept">
+      <div>
+        <span class="badge">Перезапуск образования 2026</span>
+        <h1>Студенты читают <span class="grad">лекции бизнесу</span> и делают это полезно для всех.</h1>
+        <p>Вместо устаревших форматов — практический цикл: анализ реальных задач компаний, публичная защита решений и быстрый переход к стажировке.</p>
+        <button class="btn btn-main">Хочу участвовать</button>
+      </div>
+      <div class="hero-card reveal">
+        <div class="quote">📊 <strong>67%</strong> вакансий требуют data-навыки, которых нет в классической программе.</div>
+        <div class="quote">🏢 HR и руководители получают готовую карту компетенций от студкоманд.</div>
+        <div class="quote">🚀 Университет запускает пилот за 2–3 недели, без сложной бюрократии.</div>
+      </div>
+    </section>
+
+    <section class="section" id="benefits">
+      <h2 class="title">Почему это выглядит дорого и работает в реальности</h2>
+      <p class="sub">Красота сайта = структура + чистая типографика + акцентная анимация, а не хаос эффектов.</p>
+      <div class="grid3">
+        <article class="card reveal"><div class="icon">🎓</div><h3>Студенты — спикеры</h3><p>Портфолио из реальных задач, не учебных абстракций.</p></article>
+        <article class="card reveal"><div class="icon">🏛️</div><h3>Вузы обновляют треки</h3><p>План обновления дисциплин по данным от работодателей.</p></article>
+        <article class="card reveal"><div class="icon">💼</div><h3>Бизнес сокращает адаптацию</h3><p>Меньше расходов на дообучение, больше релевантных стажеров.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="stats">
+      <h2 class="title">Рейтинг партнёров</h2>
+      <p class="sub">Количество внедрённых студенческих проектов (демо-данные).</p>
+      <div class="stats">
+        <div class="stat"><div class="num" data-num="124">0</div><div>ТехноЛидер</div></div>
+        <div class="stat"><div class="num" data-num="87">0</div><div>ИнжПроект</div></div>
+        <div class="stat"><div class="num" data-num="56">0</div><div>МаркетХаб</div></div>
+        <div class="stat"><div class="num" data-num="42">0</div><div>СтройИнвест</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="start">
+      <div class="cta reveal">
+        <div>
+          <h2 class="title">Запустим пилот в вашем вузе</h2>
+          <p>Оставьте контакты — отправим чеклист запуска, шаблон программы и дорожную карту на 30 дней.</p>
+        </div>
+        <form class="form" id="leadForm">
+          <input class="input" placeholder="Вуз / команда" required>
+          <input class="input" type="email" placeholder="Email" required>
+          <button class="btn btn-main" style="width:100%;margin-top:8px">Отправить заявку</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Анти-лекции · Современный лендинг на чистом HTML/CSS/JS
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const links = document.getElementById('links');
+    menuBtn?.addEventListener('click', ()=> links.classList.toggle('open'));
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+    },{threshold:.2});
+    revealEls.forEach(el=>io.observe(el));
+
+    const nums = document.querySelectorAll('.num');
+    const animateNum = (el)=>{
+      const target = Number(el.dataset.num);
+      let cur = 0;
+      const step = Math.max(1, Math.round(target / 45));
+      const t = setInterval(()=>{
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(t); }
+        el.textContent = cur;
+      }, 18);
+    };
+    nums.forEach(animateNum);
+
+    document.getElementById('leadForm')?.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      alert('Спасибо! Мы отправили вам материалы по запуску.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
