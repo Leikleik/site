@@ -94,9 +94,28 @@
     }
     .logo span { color:#ff86ca; }
 
-    .links { display:flex; align-items:center; gap:24px; color:var(--muted); }
-    .links a { font-weight:600; transition:.2s; }
-    .links a:hover { color:#fff; }
+    .links { display:flex; align-items:center; gap:24px; color:#fff; }
+    .links a {
+      font-weight:600;
+      transition:.25s;
+      position:relative;
+      padding-bottom:6px;
+    }
+    .links a::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:3px;
+      background:#090909;
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform .28s ease;
+      border-radius:999px;
+    }
+    .links a:hover::after,
+    .links a:focus-visible::after { transform:scaleX(1); }
 
     .btn {
       border:none;
@@ -318,6 +337,20 @@
     }
     .step .kicker { color:#ffd4ef; font-size:.82rem; margin-bottom:10px; }
 
+    .cases-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .case-card {
+      border-radius:18px;
+      border:1px solid #ffffff25;
+      background:#ffffff10;
+      padding:18px;
+    }
+    .case-card p { color:#e6defd; margin-bottom:10px; }
+    .case-author { color:#ffd4ef; font-size:.95rem; font-weight:600; }
+
     .cta {
       margin-top:26px;
       border:1px solid #ffffff2b;
@@ -367,6 +400,7 @@
       .stats { grid-template-columns:1fr 1fr; }
       .timeline { grid-template-columns:1fr 1fr; }
       .cta { grid-template-columns:1fr; }
+      .cases-grid { grid-template-columns:1fr; }
     }
 
     @media (max-width: 760px) {
@@ -390,7 +424,8 @@
       .hide-mobile { display:none; }
       .cards,
       .stats,
-      .timeline { grid-template-columns:1fr; }
+      .timeline,
+      .cases-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -411,6 +446,7 @@
         <a href="#benefits">Выгоды</a>
         <a href="#flow">Как это работает</a>
         <a href="#rating">Рейтинг</a>
+        <a href="#cases">Кейсы</a>
         <a href="#launch">Запуск</a>
       </nav>
 
@@ -523,6 +559,12 @@
       </div>
     </section>
 
+    <section class="section" id="cases">
+      <h2 class="section-title reveal">Кейсы успеха студентов и компаний</h2>
+      <p class="section-sub reveal">Добавил реальные роли и формулировки из твоего исходного варианта, чтобы сохранить смысл проекта.</p>
+      <div class="cases-grid reveal" id="casesGrid"></div>
+    </section>
+
     <section class="section" id="launch">
       <h2 class="section-title reveal">Запуск пилота в твоём вузе</h2>
       <div class="cta reveal">
@@ -586,6 +628,21 @@
       }, 22);
     };
     counters.forEach(animateCounter);
+
+    const caseItems = [
+      { name: 'Иван С.', role: 'Студент 3 курса СИЭУиП', text: 'Устроился в ТехноЛидер по программе 2+3. Уже через 3 месяца получил повышение!', icon: '🎓' },
+      { name: 'Екатерина М.', role: 'Студентка 4 курса СПК', text: 'Сократили время адаптации с 6 до 2 месяцев благодаря Анти-лекциям.', icon: '👩‍🎓' },
+      { name: 'Дмитрий В.', role: 'Студент 2 курса TOP IT College', text: 'Внедрили 4 новых спецкурса по запросу бизнеса.', icon: '🧑‍💻' }
+    ];
+    const casesGrid = document.getElementById('casesGrid');
+    if (casesGrid) {
+      casesGrid.innerHTML = caseItems.map((item) => `
+        <article class="case-card">
+          <p><strong>${item.icon} «${item.text}»</strong></p>
+          <div class="case-author">— ${item.name}, ${item.role}</div>
+        </article>
+      `).join('');
+    }
 
     document.getElementById('launchForm')?.addEventListener('submit', (e) => {
       e.preventDefault();
